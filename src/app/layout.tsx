@@ -28,7 +28,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           </header>
 
           {/* Main Content (fills available height) */}
-          <main className="px-6 py-4 overflow-hidden">
+          <main className="px-2 overflow-hidden h-full flex flex-col">
             {children}
           </main>
 
