@@ -1,6 +1,6 @@
 export default function TerminalWelcome() {
     return (
-      <div className="bg-black text-green-400 font-mono rounded-lg pt-4 shadow-lg w-full max-w-2xl mx-auto mt-3">
+      <div className="bg-black text-green-400 font-mono rounded-lg pt-4 shadow-lg w-full mx-auto mt-3">
         <div className="flex items-center">
           <span className="text-blue-400">niveditarani@portfolio:~$</span>
           <span className="ml-2 text-green-400">welcome</span>

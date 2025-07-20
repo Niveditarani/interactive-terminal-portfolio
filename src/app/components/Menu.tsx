@@ -1,3 +1,5 @@
+"use client";
+import { useRef, useEffect } from 'react';
 import TerminalWelcome from "./TerminalWelcome";
 import TerminalPrompt from "./TerminalPrompt";
 
@@ -18,7 +20,7 @@ export default function Menu() {
                     ))}
                 </nav>
                 {/* Separator line */}
-                <div className="w-100 h-px bg-green-400 mt-3" />
+                <div className="w-114 h-px bg-green-400 mt-3" />
             </div>
                 {/* Terminal welcome message */}
                 {/* <div className="flex">

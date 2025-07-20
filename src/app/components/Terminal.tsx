@@ -13,7 +13,7 @@ export default function Terminal() {
   };
 
   return (
-    <div className="bg-black text-green-400 font-mono p-6 rounded-lg w-full max-w-2xl shadow-lg">
+    <div className="bg-black text-green-400 font-mono p-6 rounded-lg w-full shadow-lg">
       <div>
         {history.map((line, idx) => (
           <div key={idx}>&gt; {line}</div>

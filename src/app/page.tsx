@@ -1,5 +1,4 @@
 "use client";
-import Terminal from './components/Terminal';
 import MatrixBackground from './components/MatrixBackground';
 import GlitchProfilePic from './components/GlitchProfilePic';
 import Menu from './components/Menu';
