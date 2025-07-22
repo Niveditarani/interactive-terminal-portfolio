@@ -1,5 +1,26 @@
 @import "tailwindcss";
 
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #22c55e #000; /* green thumb, black track */
+}
+
+/* WebKit-specific styling (Chrome, Edge, etc.) */
+*::-webkit-scrollbar {
+  width: 6px; /* Smaller width */
+  height: 6px; /* For horizontal scrollbars, if any */
+}
+
+*::-webkit-scrollbar-track {
+  background: #000; /* Track color (black) */
+}
+
+*::-webkit-scrollbar-thumb { /* Tailwind green-500 */
+  border-radius: 4px;
+  border: 2px solid #000; /* Padding around thumb to make it thinner visually */
+}
+
+
 html, body {
   height: 100%;
   margin: 0;

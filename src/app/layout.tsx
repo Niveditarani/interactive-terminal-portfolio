@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="h-full">
+    <html lang="en">
       <body className="bg-black font-mono text-green-400 h-full m-0 overflow-hidden">
         <div className="grid grid-rows-[auto_1fr_auto] h-full">
           {/* Header */}
@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           </header>
 
           {/* Main content */}
-          <main className="px-2 overflow-hidden h-full flex flex-col">
+          <main className="px-2 h-full flex flex-col">
             {children}
           </main>
 

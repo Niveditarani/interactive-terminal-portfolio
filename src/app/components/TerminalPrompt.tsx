@@ -22,7 +22,7 @@ const ABOUT_TEXT = [
     "Here are some of the technologies I work with regularly:",
     "",
     "- TypeScript",
-    "-JavaScript (ES6+)",
+    "- JavaScript (ES6+)",
     "- React",
     "- Next.js",
     "- Node.js",
@@ -88,7 +88,7 @@ export default function TerminalPrompt() {
                 {`Command not found: ${line.replace("COMMAND_NOT_FOUND:", "")}`}
                 </div>
             ) : line.startsWith("ABOUT_SECTION:") ? (
-                <div key={idx} className="text-white whitespace-pre snap-start">
+                <div key={idx} className="text-white whitespace-pre-wrap break-words snap-start">
                 {line.replace("ABOUT_SECTION:", "")}
                 </div>
             ) : line.startsWith("niveditarani@portfolio:~$") ? (

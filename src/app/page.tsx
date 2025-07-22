@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="h-full grid grid-cols-12 items-stretch bg-black">
       {/* Left: Glitch Profile Pic on Matrix Background */}
-      <div className="relative h-full col-span-5 flex items-center justify-center border-r-1 border-green-400">
+      <div className="relative h-full col-span-4 flex items-center justify-center border-r-1 border-green-400">
         {/* Matrix background fills the entire area */}
         <MatrixBackground />
         {/* Glitch profile pic centered and above the matrix */}
@@ -16,7 +16,7 @@ export default function Home() {
         </div>
       </div>
       {/* Right: Menu Options */}
-      <div className="col-span-7 flex flex-col px-6 h-full overflow-hidden">
+      <div className="col-span-8 flex flex-col px-6 h-full">
         <Menu />
       </div>
     </div>

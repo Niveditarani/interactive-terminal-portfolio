@@ -1,9 +1,18 @@
 /** @type {import('tailwindcss').Config} */
+
+const plugin = require('tailwind-scrollbar');
+
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  safelist: [
+    "scrollbar",
+    "scrollbar-thin",
+    "scrollbar-thumb-green-500",
+    "scrollbar-track-black",
   ],
   theme: {
     extend: {
@@ -18,18 +27,7 @@ module.exports = {
         'bash-cyan': '#8abeb7',
         'bash-magenta': '#b294bb',
       },
-      animation: {
-        blink: 'blink 1s step-start infinite',
-      },
-      keyframes: {
-        blink: {
-          '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '0' },
-        },
-      },
     },
   },
-  plugins: [
-    require('tailwind-scrollbar'),
-  ],
+  plugins: [require("tailwind-scrollbar")({ nocompatible: true })],
 }
