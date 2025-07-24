@@ -1,39 +1,10 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-
-const HELP_TEXT = [
-  "",
-  "Available commands:",
-  "about         - Learn about me",
-  "projects      - Yeah! I've made some cool stuff. View my projects.",
-  "CV            - Check out my CV",
-  "contact       - How to reach me",
-  "clear         - Clear the terminal",
-  "",
-  "Type any command to continue...",
-  "",
-];
-
-const ABOUT_TEXT = [
-    "",
-    "I’m a full stack developer based in Copenhagen, fascinated by large-scale, high-impact products and contributed to the development of features in industry-leading services.",
-    "Currently channeling my energy into open source projects that aim to make a difference.",
-    "",
-    "Here are some of the technologies I work with regularly:",
-    "",
-    "- TypeScript",
-    "- JavaScript (ES6+)",
-    "- React",
-    "- Next.js",
-    "- Node.js",
-    "- Tailwind CSS",
-    "- Git",
-    "",
-    "Beyond the code, I find joy in creating art, tending to my garden, and experimenting in the kitchen.",
-    "",
-    "Feel free to explore more using the 'projects', 'CV', or 'contact' commands!",
-    "",
-  ];
+import { ABOUT_TEXT } from "../constants/aboutContent";
+import HELP_TEXT from "../constants/helpText";
+import BoxSpinner from "./BoxSpinner";
+import CONTACT_TEXT from "../constants/contact";
+import { EXPERIENCE_TEXT } from "../constants/experience";
 
 export default function TerminalPrompt() {
   const [input, setInput] = useState("");
@@ -41,26 +12,58 @@ export default function TerminalPrompt() {
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
+  const COMMANDS: Record<string, () => void> = {
+    help: () => setOutput(prev => [...prev, `niveditarani@portfolio:~$ help`, ...HELP_TEXT]),
+    about: () => setOutput((prev) => [
+      ...prev,
+      `niveditarani@portfolio:~$ about`,
+      ...ABOUT_TEXT.map(line => line.startsWith("ABOUT_HIGHLIGHT:") ? line
+      : line ? `ABOUT_TEXT:${line}` : ""),
+    ]),
+    projects: () => {setOutput(prev => [...prev, `niveditarani@portfolio:~$ projects`, "PROJECTS_LOADING"]);
+      setTimeout(()=> {
+        setOutput((prev)=> [...prev.slice(0, -1), "",
+          "COMING_SOON: Projects section is coming soon!",
+        "",
+      ]);
+      },8000);
+    },
+    contact: () => setOutput((prev) => [
+      ...prev,
+      `niveditarani@portfolio:~$ contact`,
+      ...CONTACT_TEXT.map(line => line.startsWith("CONTACT_HIGHLIGHT:") ? line
+      : line ? `CONTACT_TEXT:${line}` : ""),
+    ]),
+    experience: () => setOutput(prev => [...prev, `niveditarani@portfolio:~$ experience`, ...EXPERIENCE_TEXT.map(line => line ? `CONTACT_TEXT:${line}` : ""),]),
+    clear: () => setOutput([]),
+  };
+  
+
   useEffect(() => {
     const container = scrollRef.current;
     if (container) {
-      container.scrollTop = container.scrollHeight;
+      container.scrollTop = container.scrollHeight; //Scroll all the way down to the bottom of the terminal
     }
   }, [output]); // output is your array of terminal lines
 
   useEffect(() => {
-    inputRef.current?.focus();
+     inputRef.current?.focus(); //Focus on the input field
   }, [output]);
 
   const handleCommand = (cmd: string) => {
-    if (cmd.trim().toLowerCase() === "help") {
-      setOutput((prev) => [...prev, `niveditarani@portfolio:~$ help`, ...HELP_TEXT]);
-    } else if (cmd === "about") {
-        setOutput((prev) => [...prev, `niveditarani@portfolio:~$ about`, ...ABOUT_TEXT]);
-    } else if (cmd.trim().toLowerCase() === "clear") {
-      setOutput([]);
-    } else if (cmd.trim() !== "") {
-      setOutput((prev) => [...prev, `niveditarani@portfolio:~$ ${cmd}`,"", `Command not found: ${cmd}`, ""]);
+    const trimmedCmd = cmd.trim().toLowerCase();
+    const commandAction = COMMANDS[trimmedCmd];
+  
+    if (commandAction) {
+      commandAction();
+    } else if (trimmedCmd !== "") {
+      setOutput(prev => [
+        ...prev,
+        `niveditarani@portfolio:~$ ${cmd}`,
+        "",
+        `COMMAND_NOT_FOUND: ${cmd}`,
+        "",
+      ]);
     }
   };
 
@@ -70,11 +73,51 @@ export default function TerminalPrompt() {
       setInput("");
     }
   };
+  function parseContactLine(line: string) {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    
+    if (urlRegex.test(line)) {
+      return line.split(urlRegex).map((part, idx) =>
+        urlRegex.test(part) ? (
+          <a
+            key={idx}
+            href={part}
+            className="text-blue-400 underline hover:text-blue-300"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {part}
+          </a>
+        ) : (
+          <span key={idx}>{part}</span>
+        )
+      );
+    }
+  
+    // Twitter handle as fallback
+    if (line.includes("@memoizedMom")) {
+      return (
+        <>
+          Twitter (X):{" "}
+          <a
+            href="https://twitter.com/memoizedMom"
+            className="text-blue-400 underline hover:text-blue-300"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            @memoizedMom
+          </a>
+        </>
+      );
+    }
+  
+    return line;
+  }
 
   return (
     <div
       ref={scrollRef}
-      className="bg-black text-green-400 font-mono rounded-lg w-full mx-auto mt-4 shadow-lg overflow-y-auto scrollbar-thin scrollbar-thumb-green-500 scrollbar-track-black snap-y snap-mandatory h-80"
+      className="bg-black font-mono w-full mx-auto mt-4 overflow-y-auto overflow-x-hidden break-words whitespace-pre-wrap pb-6"
     >
       {output.map((line, idx) => (
             line === "" ? (
@@ -85,11 +128,35 @@ export default function TerminalPrompt() {
                 <div key={idx} className="text-yellow-400 whitespace-pre snap-start">{line}</div>
             ) : line.startsWith("COMMAND_NOT_FOUND:") ? (
                 <div key={idx} className="text-yellow-400 whitespace-pre snap-start">
-                {`Command not found: ${line.replace("COMMAND_NOT_FOUND:", "")}`}
+                {`Command not found: ${line.replace("COMMAND_NOT_FOUND:", "").trim()}`}
                 </div>
-            ) : line.startsWith("ABOUT_SECTION:") ? (
+            ): line.startsWith("ABOUT_HIGHLIGHT:") ? (
+                <div key={idx} className="text-yellow-400 whitespace-pre-wrap break-words snap-start">
+                {line.replace("ABOUT_HIGHLIGHT:", "").trim()}
+                </div>
+            ) : line.startsWith("ABOUT_TEXT:") ? (
                 <div key={idx} className="text-white whitespace-pre-wrap break-words snap-start">
-                {line.replace("ABOUT_SECTION:", "")}
+                {line.replace("ABOUT_TEXT:", "").trim()}
+                </div>
+            ) : line === "PROJECTS_LOADING" ? (
+                <div key={idx} className="flex items-center text-green-400 snap-start space-x-2">
+                  <span><BoxSpinner /></span><span>Coming soon...</span>
+                </div>
+            ) : line.startsWith("COMING_SOON:") ? (
+              <div key={idx} className="text-yellow-400 whitespace-pre-wrap">
+                {line.replace("COMING_SOON:", "").trim()}
+              </div>
+            ) : line.startsWith("EXPERIENCE_TEXT:") ? (
+              <div key={idx} className="text-white whitespace-pre-wrap break-words snap-start">
+                {line.replace("EXPERIENCE_TEXT:", "").trim()}
+              </div>
+            ) : line.startsWith("CONTACT_HIGHLIGHT:") ? (
+              <div key={idx} className="text-yellow-400 whitespace-pre-wrap break-words snap-start">
+               {line.replace("CONTACT_HIGHLIGHT:", "").trim()}
+              </div>
+            ) : line.startsWith("CONTACT_TEXT:") ? (
+                <div key={idx} className="text-white whitespace-pre-wrap break-words snap-start">
+                 {parseContactLine(line.replace("CONTACT_TEXT:", "").trim())}
                 </div>
             ) : line.startsWith("niveditarani@portfolio:~$") ? (
                 <div key={idx} className="whitespace-pre snap-start">
@@ -107,7 +174,7 @@ export default function TerminalPrompt() {
             <div className="relative ml-2 flex-1">
                 <input
                 ref={inputRef}
-                className="bg-black text-green-400 font-mono outline-none w-full caret-transparent"
+                className="bg-black text-white-400 font-mono outline-none w-full caret-transparent"
                 value={input}
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}

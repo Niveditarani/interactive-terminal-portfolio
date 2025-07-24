@@ -13,16 +13,15 @@ export default function Terminal() {
   };
 
   return (
-    <div className="bg-black text-green-400 font-mono p-6 rounded-lg w-full shadow-lg">
+    <div className="bg-black text-green-400 font-mono p-6 w-full">
       <div>
         {history.map((line, idx) => (
-          <div key={idx}>&gt; {line}</div>
+          <div key={idx}>{line}</div>
         ))}
       </div>
       <div className="flex">
-        <span>&gt; </span>
         <input
-          className="bg-black outline-none text-green-400 flex-1"
+          className="bg-black outline-none text-white-400 flex-1"
           value={input}
           onChange={e => setInput(e.target.value)}
           onKeyDown={handleInput}
