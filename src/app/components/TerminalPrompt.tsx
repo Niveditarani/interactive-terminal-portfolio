@@ -75,7 +75,7 @@ export default function TerminalPrompt() {
   };
   function parseContactLine(line: string) {
     if (line.includes("nivedita.rani19@gmail.com")) {
-      const [label, _] = line.split("nivedita.rani19@gmail.com");
+      const [label] = line.split("nivedita.rani19@gmail.com");
       return (
         <>
           {label}

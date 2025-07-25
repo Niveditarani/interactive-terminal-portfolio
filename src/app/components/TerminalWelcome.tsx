@@ -13,7 +13,7 @@ export default function TerminalWelcome() {
           Welcome to my interactive portfolio terminal!
         </div>
         <div className="mt-2 text-yellow-400">
-          Type <span className="font-bold">'help'</span> to see available commands.
+          Type <span className="font-bold">&quot;help&quot;</span> to see available commands.
         </div>
       </div>
     );
