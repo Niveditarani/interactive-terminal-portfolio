@@ -26,7 +26,7 @@ export default function TerminalPrompt() {
           "COMING_SOON: Projects section is coming soon!",
         "",
       ]);
-      },8000);
+      },800);
     },
     contact: () => setOutput((prev) => [
       ...prev,
@@ -74,6 +74,23 @@ export default function TerminalPrompt() {
     }
   };
   function parseContactLine(line: string) {
+    if (line.includes("nivedita.rani19@gmail.com")) {
+      const [label, email] = line.split("nivedita.rani19@gmail.com");
+      return (
+        <>
+          {label}
+          <a
+            href="https://mail.google.com/mail/?view=cm&to=nivedita.rani19@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 underline"
+          >
+            nivedita.rani19@gmail.com
+          </a>
+        </>
+      );
+    }
+    
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     
     if (urlRegex.test(line)) {

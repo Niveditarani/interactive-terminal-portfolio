@@ -6,7 +6,7 @@ export default function Menu() {
     const options = ["help |", "about |", "projects |", "experience |", "contact |", "clear"];
     return (
         <div className="flex flex-col h-full">
-            <div className="shrink-0">
+            <div className="shrink-0 hidden md:block">
                 {/* Menu options at the top */}
                 <div className="flex flex-row items-start justify-start pt-4 flex-wrap">
                     {options.map(option => (
@@ -20,8 +20,7 @@ export default function Menu() {
             </div>
             {/* Terminal scroll container: fills remaining space, scrolls vertically, no horizontal scroll */}
             <div
-                className="flex-1 overflow-y-auto ml-4 overflow-x-hidden scrollbar-thin scrollbar-thumb-grey-500 scrollbar-track-black break-words whitespace-pre-wrap"
-                //style={{ maxHeight: 'calc(100vh - 80px)' }} // 50px depending on header + footer height
+                className="flex-1 overflow-y-auto lg:ml-4 overflow-x-hidden scrollbar-thin scrollbar-thumb-grey-500 scrollbar-track-black break-words whitespace-pre-wrap"
             >
                 <TerminalWelcome />
                 <TerminalPrompt />
