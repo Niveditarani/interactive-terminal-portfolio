@@ -47,7 +47,9 @@ export default function TerminalPrompt() {
   }, [output]); // output is your array of terminal lines
 
   useEffect(() => {
-     inputRef.current?.focus(); //Focus on the input field
+    if (window.innerWidth > 1024) {
+      inputRef.current?.focus();
+    }
   }, [output]);
 
   const handleCommand = (cmd: string) => {

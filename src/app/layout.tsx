@@ -13,7 +13,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="bg-black font-mono text-green-400 h-screen m-0 flex flex-col">
         {/* <div className="grid grid-rows-[auto_1fr_auto] h-full"> */}
           {/* Header */}
-          <header className="bg-black z-50 shrink-0">
+          <header className="bg-black z-50 shrink-0 text-center lg:text-left">
             <div className="px-6 pt-4">
               <span className="block text-2xl font-extrabold text-green-400 leading-tight">
                 Nivedita Rani
@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           </header>
 
           {/* Main content */}
-          <main className="px-2 flex-1 overflow-y-auto">
+          <main className="px-1 lg:px-2 flex-1 overflow-y-auto">
             {children}
           </main>
 
