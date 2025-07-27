@@ -30,6 +30,7 @@ Fork this repo using the GitHub UI
 Clone it to your local machine:
 
 git clone https://github.com/your-username/your-forked-repo.git
+
 cd your-forked-repo
 
 ## Install dependencies using pnpm:
