@@ -8,7 +8,7 @@ Welcome to my **interactive terminal-style portfolio** — a fun, developer-cent
 
 <h3 align="center"><img width="800" style="border-radius:5px;" alt="screenshot" src="<h3 align="center">
   <img width="800" style="border-radius:5px;" alt="Terminal Portfolio Screenshot" src="https://niveditarani.dev/portfolio-screenshot.png" />
-</h3>"></h3>
+</h3>
 
 <br/>
 ---
