@@ -17,12 +17,9 @@ export const metadata = {
     "Interactive Terminal",
   ],
   icons: {
-    icon: [
-      { url: '/favicon.ico' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' }
-    ],
-    apple: '/apple-touch-icon.png',
+    icon: "/favicon-32x32.png",        // default icon for most browsers
+    shortcut: "/favicon.ico",          // fallback for legacy support
+    apple: "/apple-touch-icon.png",    // for iOS devices
   },
   manifest: '/site.webmanifest',
   openGraph: {
