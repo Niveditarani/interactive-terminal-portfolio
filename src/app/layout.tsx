@@ -5,6 +5,50 @@ import type { ReactNode } from 'react';
 
 export const metadata = {
   title: "Nivedita Rani",
+  description:
+    "Hi! I'm Nivedita Rani, a Software Engineer crafting interactive experiences with React, Next.js, and TypeScript. Welcome to my terminal-style portfolio.",
+  keywords: [
+    "Nivedita Rani",
+    "Software Engineer",
+    "Full Stack Developer",
+    "Next.js",
+    "React",
+    "Portfolio",
+    "Interactive Terminal",
+  ],
+  icons: {
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' }
+    ],
+    apple: '/apple-touch-icon.png',
+  },
+  manifest: '/site.webmanifest',
+  openGraph: {
+    title: 'Nivedita Rani | Terminal Portfolio',
+    description: 'Explore the interactive terminal-style portfolio of Nivedita Rani, Software Engineer.',
+    url: 'https://niveditarani.dev',
+    siteName: 'Nivedita Rani Portfolio',
+    images: [
+      {
+        url: 'https://niveditarani.dev/preview.png',
+        width: 1200,
+        height: 630,
+        alt: 'Nivedita Rani Terminal Portfolio Screenshot',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Nivedita Rani | Terminal Portfolio',
+    description: 'Interactive terminal-style portfolio of Nivedita Rani, Software Engineer.',
+    creator: '@memoizedMom',
+    images: ['https://niveditarani.dev/preview.png'],
+  },
+  metadataBase: new URL('https://niveditarani.dev'),
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -15,12 +59,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           {/* Header */}
           <header className="bg-black z-50 shrink-0 text-center lg:text-left">
             <div className="px-6 pt-4">
-              <span className="block text-2xl font-extrabold text-green-400 leading-tight">
+              <h1 className=" text-2xl font-extrabold text-green-400 leading-tight">
                 Nivedita Rani
-              </span>
-              <span className="block text-md text-blue-400 mb-4">
+              </h1>
+              <p className="text-md text-blue-400 mb-4">
                 Software Engineer
-              </span>
+              </p>
             </div>
             <div className="h-px w-full bg-green-400" />
           </header>

@@ -1,3 +1,9 @@
+# *
 User-agent: *
 Allow: /
+
+# Host
+Host: https://niveditarani.dev
+
+# Sitemaps
 Sitemap: https://niveditarani.dev/sitemap.xml

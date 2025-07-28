@@ -6,15 +6,15 @@ export default function TerminalWelcome() {
           <span className="text-blue-400">niveditarani@portfolio:~$</span>
           <span className="ml-2 text-green-400">welcome</span>
         </div>
-        <div className="mt-2 text-white">
+        <p className="mt-2 text-white">
           Hi, I'm Nivedita Rani, a Software Engineer.
-        </div>
-        <div className="mt-2 text-green-400">
+        </p>
+        <p className="mt-2 text-green-400">
           Welcome to my interactive portfolio terminal!
-        </div>
-        <div className="mt-2 text-yellow-400">
+        </p>
+        <p className="mt-2 text-yellow-400">
           Type <span className="font-bold">&apos;help&apos;</span> to see available commands.
-        </div>
+        </p>
       </div>
     );
   }
