@@ -16,7 +16,7 @@ export default function Home() {
         </div>
       </div>
       {/* Right: Menu Options */}
-      <div className="col-span-12 md:col-span-12 lg:col-span-8 flex flex-col px-6 h-full overflow-hidden">
+      <div className="col-span-12 md:col-span-12 lg:col-span-8 flex flex-col px-3 h-full overflow-hidden">
         <Menu />
       </div>
     </div>

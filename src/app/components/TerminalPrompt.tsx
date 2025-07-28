@@ -71,10 +71,13 @@ export default function TerminalPrompt() {
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
+      e.preventDefault();
       handleCommand(input);
       setInput("");
+      e.currentTarget.blur();
     }
   };
+
   function parseContactLine(line: string) {
     if (line.includes("nivedita.rani19@gmail.com")) {
       const [label] = line.split("nivedita.rani19@gmail.com");
@@ -189,7 +192,11 @@ export default function TerminalPrompt() {
             )
         ))}
       <div className="flex items-center snap-start">
-            <span className="text-blue-400">niveditarani@portfolio:~$</span>
+            {/* Show on small screens (mobile) */}
+            <span className="text-blue-400 block sm:hidden">nivedita@portfolio:~$</span>
+
+            {/* Show on medium and larger screens */}
+            <span className="text-blue-400 hidden sm:block">niveditarani@portfolio:~$</span>
             <div className="relative ml-2 flex-1">
                 <input
                 ref={inputRef}
