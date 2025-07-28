@@ -34,12 +34,9 @@ git clone https://github.com/your-username/your-forked-repo.git
 cd your-forked-repo
 
 ## Install dependencies using pnpm:
-```bash
 pnpm install
 
-## run the development server:
-
-```bash
+## Run the development server:
 pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -57,8 +54,10 @@ If you found this project helpful or used it to build your own terminal portfoli
 📫 Contact
 For any questions or just to connect:
 
-- GitHub: @Niveditarani
+- GitHub: [Niveditarani](https://github.com/Niveditarani)
 
-- LinkedIn: Nivedita Rani
+- LinkedIn: [Nivedita Rani](https://www.linkedin.com/in/nivedita-rani/)
 
 - Email: nivedita.rani19@gmail.com
+
+-X (Twitter): @memoizedMom
