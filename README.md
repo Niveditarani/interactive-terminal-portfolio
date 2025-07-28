@@ -60,4 +60,4 @@ For any questions or just to connect:
 
 - Email: nivedita.rani19@gmail.com
 
--X (Twitter): @memoizedMom
+- X (Twitter): @memoizedMom
