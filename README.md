@@ -2,11 +2,13 @@
 
 Welcome to my **interactive terminal-style portfolio** — a fun, developer-centric way to explore who I am, what I’ve worked on, and how to get in touch. Built to feel like a command-line interface, this portfolio is designed with minimalism, responsiveness, and curiosity in mind.
 
-<h3 align="center"><img width="80" alt="niveditarani.dev, An interactive terminal portfolio using Next.js, tailwindcss, Framer-motion." src="https://niveditarani.dev/favicon-32x32.png"></h3>
+<h3 align="center">
+  <img width="80" alt="niveditarani.dev favicon" src="https://niveditarani.dev/favicon-32x32.png" />
+</h3>
 
-<h3 align="center">An interactive terminal portfolio using Next.js, tailwindcss, Framer-motion.</h3>
+<h3 align="center">An interactive terminal portfolio using Next.js, Tailwind CSS, and Framer Motion.</h3>
 
-<h3 align="center"><img width="800" style="border-radius:5px;" alt="screenshot" src="<h3 align="center">
+<h3 align="center">
   <img width="800" style="border-radius:5px;" alt="Terminal Portfolio Screenshot" src="https://niveditarani.dev/portfolio-screenshot.png" />
 </h3>
 
