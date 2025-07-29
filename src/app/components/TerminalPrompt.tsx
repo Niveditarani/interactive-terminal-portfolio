@@ -52,6 +52,7 @@ export default function TerminalPrompt() {
     }
   }, [output]);
 
+
   const handleCommand = (cmd: string) => {
     const trimmedCmd = cmd.trim().toLowerCase();
     const commandAction = COMMANDS[trimmedCmd];
@@ -74,7 +75,16 @@ export default function TerminalPrompt() {
       e.preventDefault();
       handleCommand(input);
       setInput("");
-      e.currentTarget.blur();
+        // 1. Blur keyboard (especially on mobile)
+        inputRef.current?.blur();
+
+      // 2. Wait a frame, then scroll to bottom smoothly
+      setTimeout(() => {
+        scrollRef.current?.scrollTo({
+          top: scrollRef.current.scrollHeight,
+          behavior: "smooth",
+        });
+      }, 80); // small delay ensures content renders first
     }
   };
 
@@ -139,7 +149,7 @@ export default function TerminalPrompt() {
   return (
     <div
       ref={scrollRef}
-      className="bg-black font-mono w-full mx-auto mt-4 overflow-y-auto overflow-x-hidden break-words whitespace-pre-wrap pb-6"
+      className="bg-black font-mono w-full mx-auto mt-4 overflow-y-auto overflow-x-hidden break-words whitespace-pre-wrap pb-6 scroll-smooth sm:scroll-auto"
     >
       {output.map((line, idx) => (
             line === "" ? (
