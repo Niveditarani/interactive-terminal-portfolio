@@ -31,6 +31,11 @@ export const metadata = {
       },
     ],
   },
+  other: {
+    'apple-mobile-web-app-title': 'Nivedita Rani Portfolio',
+    'mobile-web-app-capable': 'yes',
+    'msapplication-TileColor': '#000000',
+  },
   manifest: "/site.webmanifest",
   openGraph: {
     title: 'Nivedita Rani | Terminal Portfolio',
