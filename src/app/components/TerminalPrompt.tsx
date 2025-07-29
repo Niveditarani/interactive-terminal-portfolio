@@ -11,6 +11,9 @@ export default function TerminalPrompt() {
   const [output, setOutput] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+
 
   const COMMANDS: Record<string, () => void> = {
     help: () => setOutput(prev => [...prev, `niveditarani@portfolio:~$ help`, ...HELP_TEXT]),
@@ -38,14 +41,45 @@ export default function TerminalPrompt() {
     clear: () => setOutput([]),
   };
   
+  useEffect(() => {
+    // Check if mobile device
+    setIsMobile(/Mobi|Android/i.test(navigator.userAgent));
+    
+    // Handle viewport changes when keyboard appears/disappears
+    const handleResize = () => {
+      if (scrollRef.current) {
+        setTimeout(() => {
+          scrollRef.current?.scrollTo({
+            top: scrollRef.current.scrollHeight,
+            behavior: 'smooth'
+          });
+        }, 300);
+      }
+    };
 
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Enhanced scroll handling
   useEffect(() => {
     const container = scrollRef.current;
     if (container) {
-      container.scrollTop = container.scrollHeight; //Scroll all the way down to the bottom of the terminal
+      // Use smooth scrolling
+      const behavior = 'smooth';
+      
+      // Small delay to ensure content is rendered
+      setTimeout(() => {
+        container.scrollTo({
+          top: container.scrollHeight,
+          behavior
+        });
+      }, 50);
     }
-  }, [output]); // output is your array of terminal lines
+  }, [output, isMobile]);
 
+
+  // Focus the input field when the terminal is on large screens
   useEffect(() => {
     if (window.innerWidth > 1024) {
       inputRef.current?.focus();
@@ -78,15 +112,19 @@ export default function TerminalPrompt() {
         // 1. Blur keyboard (especially on mobile)
         inputRef.current?.blur();
 
-      // 2. Wait a frame, then scroll to bottom smoothly
-      setTimeout(() => {
-        scrollRef.current?.scrollTo({
-          top: scrollRef.current.scrollHeight,
-          behavior: "smooth",
-        });
-      }, 80); // small delay ensures content renders first
+        // Enhanced mobile scrolling
+        if (isMobile) {
+          // Wait for keyboard to fully dismiss
+          setTimeout(() => {
+            if (scrollRef.current) {
+              scrollRef.current.scrollTo({
+                top: scrollRef.current.scrollHeight,
+                behavior: 'smooth'
+              });
+            }
+          }, 350); // small delay ensures content renders first
     }
-  };
+  }};
 
   function parseContactLine(line: string) {
     if (line.includes("nivedita.rani19@gmail.com")) {
@@ -149,7 +187,14 @@ export default function TerminalPrompt() {
   return (
     <div
       ref={scrollRef}
-      className="bg-black font-mono w-full mx-auto mt-4 overflow-y-auto overflow-x-hidden break-words whitespace-pre-wrap pb-6 scroll-smooth sm:scroll-auto"
+      className="terminal-container bg-black font-mono w-full mx-auto mt-4 overflow-y-auto overflow-x-hidden break-words whitespace-pre-wrap pb-6 scroll-smooth"
+      style={{
+        // Ensure smooth scrolling works consistently
+        scrollBehavior: 'smooth',
+        // Mobile viewport fixes
+        height: isMobile ? 'calc(100vh - 120px)' : 'auto',
+        maxHeight: isMobile ? 'calc(100vh - 120px)' : 'none'
+      }}
     >
       {output.map((line, idx) => (
             line === "" ? (

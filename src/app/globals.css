@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+
+/* Ensure smooth scrolling works across browsers */
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   scrollbar-width: thin;
   scrollbar-color: #0d0e0e #000; /* green thumb, black track */
@@ -40,4 +46,19 @@ html, body {
 
 .blinking-cursor {
   animation: blink 1s step-start infinite;
+}
+
+/* Better mobile viewport handling */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+    height: 100vh;
+  }
+}
+
+/* Improve scroll performance */
+.terminal-container {
+  -webkit-overflow-scrolling: touch; /* For iOS smooth scrolling */
+  overflow-anchor: none; /* Disable browser scroll anchoring */
+  transform: translateZ(0); /* Hardware acceleration */
 }
