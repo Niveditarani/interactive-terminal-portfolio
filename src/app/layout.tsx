@@ -17,11 +17,21 @@ export const metadata = {
     "Interactive Terminal",
   ],
   icons: {
-    icon: "/favicon-32x32.png",        // default icon for most browsers
-    shortcut: "/favicon.ico",          // fallback for legacy support
-    apple: "/apple-touch-icon.png",    // for iOS devices
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+      { url: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+    ],
+    apple: "/apple-touch-icon.png",
+    other: [
+      {
+        rel: "icon",
+        url: "/favicon.ico",
+        sizes: "any",
+      },
+    ],
   },
-  manifest: '/site.webmanifest',
+  manifest: "/site.webmanifest",
   openGraph: {
     title: 'Nivedita Rani | Terminal Portfolio',
     description: 'Explore the interactive terminal-style portfolio of Nivedita Rani, Software Engineer.',
