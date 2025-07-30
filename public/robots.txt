@@ -2,6 +2,9 @@
 User-agent: *
 Allow: /
 
+# Explicitly allow favicon
+Allow: /favicon.ico
+
 # Host
 Host: https://niveditarani.dev
 
