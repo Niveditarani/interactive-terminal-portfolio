@@ -57,7 +57,7 @@ If you found this project helpful or used it to build your own terminal portfoli
 💬 Mention me or link back to the original repo — I’d love to see what you build!
 
 📫 Contact
-For any questions or just to connect:
+For any questions or just to connect: 
 
 - GitHub: [Niveditarani](https://github.com/Niveditarani)
 
