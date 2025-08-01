@@ -17,12 +17,12 @@ export const metadata = {
     "Interactive Terminal",
   ],
   icons: {
-    icon: [
-      { url: '/favicon.svg', type: 'image/svg+xml' },
+    icon: [      
       { url: "/favicon.ico", type: "image/x-icon" },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
       { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
       { url: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
-      { url: "/favicon-96x96.png", type: "image/png", sizes: "96x96" },
+      { url: '/favicon-96x96.png', type: 'image/png', sizes: '96x96' },
     ],
     apple: [
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }, 
@@ -39,7 +39,7 @@ export const metadata = {
   },
   manifest: "/site.webmanifest",
   openGraph: {
-    title: 'Nivedita Rani | Terminal Portfolio',
+    title: 'Nivedita Rani\'s Portfolio',
     description: 'Explore the interactive terminal-style portfolio of Nivedita Rani, Software Engineer.',
     url: 'https://niveditarani.dev',
     siteName: 'Nivedita Rani Portfolio',
@@ -48,7 +48,7 @@ export const metadata = {
         url: 'https://niveditarani.dev/preview.png',
         width: 1200,
         height: 630,
-        alt: 'Nivedita Rani Terminal Portfolio Screenshot',
+        alt: 'Nivedita Rani Terminal Portfolio',
       },
     ],
     locale: 'en_US',
@@ -56,7 +56,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Nivedita Rani | Terminal Portfolio',
+    title: 'Nivedita Rani\'s Portfolio',
     description: 'Interactive terminal-style portfolio of Nivedita Rani, Software Engineer.',
     creator: '@memoizedMom',
     images: ['https://niveditarani.dev/preview.png'],

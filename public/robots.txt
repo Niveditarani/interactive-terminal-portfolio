@@ -1,4 +1,8 @@
-# *
+# Allow Facebook crawler
+User-agent: facebookexternalhit
+Allow: /
+
+# Allow all other crawlers
 User-agent: *
 Allow: /
 
