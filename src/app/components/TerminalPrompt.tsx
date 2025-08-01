@@ -47,10 +47,12 @@ export default function TerminalPrompt() {
   }, [output]); // output is your array of terminal lines
 
   useEffect(() => {
-    if (window.innerWidth > 1024) {
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  
+    if (!isTouchDevice && window.innerWidth > 1024) {
       inputRef.current?.focus();
     }
-  }, [output]);
+  }, []);
 
 
   const handleCommand = (cmd: string) => {
@@ -214,7 +216,6 @@ export default function TerminalPrompt() {
                 value={input}
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                autoFocus
                 />
                 <span className="absolute left-0 top-0 blinking-cursor text-green-400 font-bold pointer-events-none">
                 {input}
