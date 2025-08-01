@@ -45,7 +45,7 @@ export const metadata = {
     siteName: 'Nivedita Rani Portfolio',
     images: [
       {
-        url: 'https://niveditarani.dev/og-preview.jpg',
+        url: 'https://www.niveditarani.dev/og-preview.jpg',
         width: 1200,
         height: 630,
         alt: 'Nivedita Rani Terminal Portfolio',
@@ -59,7 +59,7 @@ export const metadata = {
     title: 'Nivedita Rani\'s Portfolio',
     description: 'Interactive terminal-style portfolio of Nivedita Rani, Software Engineer.',
     creator: '@memoizedMom',
-    images: ['https://niveditarani.dev/og-preview.jpg'],
+    images: ['https://www.niveditarani.dev/og-preview.jpg'],
   },
   metadataBase: new URL('https://niveditarani.dev'),
 };
