@@ -77,8 +77,11 @@ export default function TerminalPrompt() {
       e.preventDefault();
       handleCommand(input);
       setInput("");
-        // 1. Blur keyboard (especially on mobile)
-        inputRef.current?.blur();
+      // Refocus the input ONLY on desktop
+      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      if (!isTouchDevice && window.innerWidth > 1024) {
+        inputRef.current?.focus();
+      }
 
       // 2. Wait a frame, then scroll to bottom smoothly
       setTimeout(() => {
