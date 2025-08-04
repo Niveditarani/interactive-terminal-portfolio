@@ -16,6 +16,7 @@ type TerminalPromptProps = {
 
 export default function TerminalPrompt({ input, setInput, output, setOutput, scrollRef }: TerminalPromptProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [isClient, setIsClient] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   const COMMANDS: Record<string, () => void> = {
@@ -53,8 +54,13 @@ export default function TerminalPrompt({ input, setInput, output, setOutput, scr
   }, [output]); // output is your array of terminal lines
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      setIsLargeScreen(window.innerWidth >= 1024);
+    setIsClient(true); // We’re on the client now
+    const screenWidth = window.innerWidth;
+    setIsLargeScreen(screenWidth >= 1024);
+
+    // Manually focus input on large screens
+    if (screenWidth >= 1024) {
+      inputRef.current?.focus();
     }
   }, []);
 
@@ -221,7 +227,6 @@ export default function TerminalPrompt({ input, setInput, output, setOutput, scr
                 value={input}
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                {...(isLargeScreen ? { autoFocus: true } : {})}
                 />
                 <span className="absolute left-0 top-0 blinking-cursor text-green-400 font-bold pointer-events-none">
                 {input}
