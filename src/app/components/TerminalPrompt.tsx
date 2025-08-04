@@ -16,6 +16,7 @@ type TerminalPromptProps = {
 
 export default function TerminalPrompt({ input, setInput, output, setOutput, scrollRef }: TerminalPromptProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const isDesktopRef = useRef<boolean>(false);
 
   const COMMANDS: Record<string, () => void> = {
     help: () => setOutput((prev: string[]) => [...prev, `niveditarani@portfolio:~$ help`, ...HELP_TEXT]),
@@ -52,11 +53,15 @@ export default function TerminalPrompt({ input, setInput, output, setOutput, scr
   }, [output]); // output is your array of terminal lines
 
   useEffect(() => {
-    const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-    const isLargeScreen = window.innerWidth >= 1024;
+    // Only run on mount
+    isDesktopRef.current =
+      !("ontouchstart" in window || navigator.maxTouchPoints > 0) &&
+      window.innerWidth >= 1024;
+  }, []);
   
-    // Only focus if it's a large non-touch screen (e.g., desktop)
-    if (!isTouchDevice && isLargeScreen) {
+  useEffect(() => {
+    // Only auto-focus if desktop
+    if (isDesktopRef.current) {
       inputRef.current?.focus();
     }
   }, [output]);
