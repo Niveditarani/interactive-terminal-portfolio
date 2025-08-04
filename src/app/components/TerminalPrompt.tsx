@@ -52,9 +52,9 @@ export default function TerminalPrompt({ input, setInput, output, setOutput, scr
   }, [output]); // output is your array of terminal lines
 
   useEffect(() => {
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-  
-    if (!isTouchDevice && window.innerWidth > 1024) {
+    const isLargeScreen = window.innerWidth >= 1024;
+
+    if (isLargeScreen) {
       inputRef.current?.focus();
     }
   }, []);
@@ -82,9 +82,8 @@ export default function TerminalPrompt({ input, setInput, output, setOutput, scr
       e.preventDefault();
       handleCommand(input);
       setInput("");
-      // Refocus the input ONLY on desktop
-      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-      if (!isTouchDevice && window.innerWidth > 1024) {
+          // Focus only on large screens
+      if (window.innerWidth >= 1024) {
         inputRef.current?.focus();
       }
 
