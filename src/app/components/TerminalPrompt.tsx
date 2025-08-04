@@ -89,8 +89,14 @@ export default function TerminalPrompt({ input, setInput, output, setOutput, scr
       e.preventDefault();
       handleCommand(input);
       setInput("");
-          // Focus only on large screens
-      if (window.innerWidth >= 1024) {
+      const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+      const isLargeScreen = window.innerWidth >= 1024;
+
+      if (isTouchDevice || !isLargeScreen) {
+        // On mobile/tablet, blur to hide the keyboard
+        inputRef.current?.blur();
+      } else {
+        // On desktop, keep focus
         inputRef.current?.focus();
       }
 
