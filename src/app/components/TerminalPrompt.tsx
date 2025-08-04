@@ -59,7 +59,7 @@ export default function TerminalPrompt({ input, setInput, output, setOutput, scr
     if (!isTouchDevice && isLargeScreen) {
       inputRef.current?.focus();
     }
-  }, []);
+  }, [output]);
 
 
   const handleCommand = (cmd: string) => {
