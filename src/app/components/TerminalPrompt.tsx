@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { ABOUT_TEXT } from "../constants/aboutContent";
 import HELP_TEXT from "../constants/helpText";
 import BoxSpinner from "./BoxSpinner";
@@ -16,8 +16,6 @@ type TerminalPromptProps = {
 
 export default function TerminalPrompt({ input, setInput, output, setOutput, scrollRef }: TerminalPromptProps) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [isClient, setIsClient] = useState(false);
-  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   const COMMANDS: Record<string, () => void> = {
     help: () => setOutput((prev: string[]) => [...prev, `niveditarani@portfolio:~$ help`, ...HELP_TEXT]),
@@ -54,12 +52,11 @@ export default function TerminalPrompt({ input, setInput, output, setOutput, scr
   }, [output]); // output is your array of terminal lines
 
   useEffect(() => {
-    setIsClient(true); // We’re on the client now
-    const screenWidth = window.innerWidth;
-    setIsLargeScreen(screenWidth >= 1024);
-
-    // Manually focus input on large screens
-    if (screenWidth >= 1024) {
+    const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    const isLargeScreen = window.innerWidth >= 1024;
+  
+    // Only focus if it's a large non-touch screen (e.g., desktop)
+    if (!isTouchDevice && isLargeScreen) {
       inputRef.current?.focus();
     }
   }, []);
