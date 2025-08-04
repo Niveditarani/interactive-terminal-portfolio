@@ -1,8 +1,14 @@
 @import "tailwindcss";
 
 
-/* Ensure smooth scrolling works across browsers */
-html {
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
+.scrollable-terminal  {
   scroll-behavior: smooth;
 }
 
@@ -33,11 +39,6 @@ html {
 }
 
 
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
 
 @keyframes blink {
   0%, 100% { opacity: 1; }

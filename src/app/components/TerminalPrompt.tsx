@@ -100,13 +100,27 @@ export default function TerminalPrompt({ input, setInput, output, setOutput, scr
         inputRef.current?.focus();
       }
 
-      // 2. Wait a frame, then scroll to bottom smoothly
+      // Step 1: Scroll a bit down
       setTimeout(() => {
-        scrollRef.current?.scrollTo({
-          top: scrollRef.current.scrollHeight,
-          behavior: "smooth",
+        if (!scrollRef.current) return;
+
+        requestAnimationFrame(() => {
+          scrollRef.current!.scrollTo({
+            top: scrollRef.current!.scrollTop + 100,
+            behavior: "smooth",
+          });
+
+          // Step 2: Scroll fully to bottom
+          setTimeout(() => {
+            requestAnimationFrame(() => {
+              scrollRef.current!.scrollTo({
+                top: scrollRef.current!.scrollHeight,
+                behavior: "smooth",
+              });
+            });
+          }, 300); // slight delay after partial scroll
         });
-      }, 80); // small delay ensures content renders first
+      }, 150); // delay after Enter press
     }
   };
 
@@ -174,52 +188,52 @@ export default function TerminalPrompt({ input, setInput, output, setOutput, scr
     >
       {output.map((line, idx) => (
             line === "" ? (
-                <div key={idx} className="snap-start">&nbsp;</div>
+                <div key={idx} className="snap-start animate-fade-in">&nbsp;</div>
             ) : line === "Available commands:" ? (
-                <div key={idx} className="text-white whitespace-pre snap-start">{line}</div>
+                <div key={idx} className="text-white whitespace-pre snap-start animate-fade-in">{line}</div>
             ) : line === "Type any command to continue..." ? (
-                <div key={idx} className="text-yellow-400 whitespace-pre snap-start">{line}</div>
+                <div key={idx} className="text-yellow-400 whitespace-pre snap-start animate-fade-in">{line}</div>
             ) : line.startsWith("COMMAND_NOT_FOUND:") ? (
-                <div key={idx} className="text-yellow-400 whitespace-pre snap-start">
+                <div key={idx} className="text-yellow-400 whitespace-pre snap-start animate-fade-in">
                 {`Command not found: ${line.replace("COMMAND_NOT_FOUND:", "").trim()}`}
                 </div>
             ): line.startsWith("ABOUT_HIGHLIGHT:") ? (
-                <div key={idx} className="text-yellow-400 whitespace-pre-wrap break-words snap-start">
+                <div key={idx} className="text-yellow-400 whitespace-pre-wrap break-words snap-start animate-fade-in">
                 {line.replace("ABOUT_HIGHLIGHT:", "").trim()}
                 </div>
             ) : line.startsWith("ABOUT_TEXT:") ? (
-                <div key={idx} className="text-white whitespace-pre-wrap break-words snap-start">
+                <div key={idx} className="text-white whitespace-pre-wrap break-words snap-start animate-fade-in">
                 {line.replace("ABOUT_TEXT:", "").trim()}
                 </div>
             ) : line === "PROJECTS_LOADING" ? (
-                <div key={idx} className="flex items-center text-green-400 snap-start space-x-2">
+                <div key={idx} className="flex items-center text-green-400 snap-start space-x-2 animate-fade-in">
                   <span><BoxSpinner /></span><span>Coming soon...</span>
                 </div>
             ) : line.startsWith("COMING_SOON:") ? (
-              <div key={idx} className="text-yellow-400 whitespace-pre-wrap">
+              <div key={idx} className="text-yellow-400 whitespace-pre-wrap animate-fade-in">
                 {line.replace("COMING_SOON:", "").trim()}
               </div>
             ) : line.startsWith("EXPERIENCE_TEXT:") ? (
-              <div key={idx} className="text-white whitespace-pre-wrap break-words snap-start">
+              <div key={idx} className="text-white whitespace-pre-wrap break-words snap-start animate-fade-in">
                 {line.replace("EXPERIENCE_TEXT:", "").trim()}
               </div>
             ) : line.startsWith("CONTACT_HIGHLIGHT:") ? (
-              <div key={idx} className="text-yellow-400 whitespace-pre-wrap break-words snap-start">
+              <div key={idx} className="text-yellow-400 whitespace-pre-wrap break-words snap-start animate-fade-in">
                {line.replace("CONTACT_HIGHLIGHT:", "").trim()}
               </div>
             ) : line.startsWith("CONTACT_TEXT:") ? (
-                <div key={idx} className="text-white whitespace-pre-wrap break-words snap-start">
+                <div key={idx} className="text-white whitespace-pre-wrap break-words snap-start animate-fade-in">
                  {parseContactLine(line.replace("CONTACT_TEXT:", "").trim())}
                 </div>
             ) : line.startsWith("niveditarani@portfolio:~$") ? (
-                <div key={idx} className="whitespace-pre snap-start">
+                <div key={idx} className="whitespace-pre snap-start animate-fade-in">
                 <span className="text-blue-400">
                     {line.slice(0, "niveditarani@portfolio:~$".length)}
                 </span>
                 {line.slice("niveditarani@portfolio:~$".length)}
                 </div>
             ) : (
-                <div key={idx} className="whitespace-pre snap-start">{line}</div>
+                <div key={idx} className="whitespace-pre snap-start animate-fade-in">{line}</div>
             )
         ))}
       <div className="flex items-center snap-start">

@@ -35,7 +35,7 @@ export default function Menu() {
             {/* Terminal scroll container: fills remaining space, scrolls vertically, no horizontal scroll */}
             <div
                 ref={scrollRef}
-                className="flex-1 overflow-y-auto lg:ml-4 overflow-x-hidden scrollbar-thin scrollbar-thumb-grey-500 scrollbar-track-black break-words whitespace-pre-wrap scroll-smooth sm:scroll-auto"
+                className="flex-1 scrollable-terminal overflow-y-auto lg:ml-4 overflow-x-hidden scrollbar-thin scrollbar-thumb-grey-500 scrollbar-track-black break-words whitespace-pre-wrap scroll-smooth sm:scroll-auto"
             >
                 <TerminalWelcome />
                 <TerminalPrompt
