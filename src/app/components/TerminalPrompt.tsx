@@ -1,19 +1,24 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { ABOUT_TEXT } from "../constants/aboutContent";
 import HELP_TEXT from "../constants/helpText";
 import BoxSpinner from "./BoxSpinner";
 import CONTACT_TEXT from "../constants/contact";
 import { EXPERIENCE_TEXT } from "../constants/experience";
 
-export default function TerminalPrompt() {
-  const [input, setInput] = useState("");
-  const [output, setOutput] = useState<string[]>([]);
+type TerminalPromptProps = {
+  input: string;
+  setInput: React.Dispatch<React.SetStateAction<string>>;
+  output: string[];
+  setOutput: React.Dispatch<React.SetStateAction<string[]>>;
+  scrollRef: React.RefObject<HTMLDivElement | null>;
+};
+
+export default function TerminalPrompt({ input, setInput, output, setOutput, scrollRef }: TerminalPromptProps) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const scrollRef = useRef<HTMLDivElement | null>(null);
 
   const COMMANDS: Record<string, () => void> = {
-    help: () => setOutput(prev => [...prev, `niveditarani@portfolio:~$ help`, ...HELP_TEXT]),
+    help: () => setOutput((prev: string[]) => [...prev, `niveditarani@portfolio:~$ help`, ...HELP_TEXT]),
     about: () => setOutput((prev) => [
       ...prev,
       `niveditarani@portfolio:~$ about`,
@@ -153,8 +158,7 @@ export default function TerminalPrompt() {
 
   return (
     <div
-      ref={scrollRef}
-      className="bg-black font-mono w-full mx-auto mt-4 overflow-y-auto overflow-x-hidden break-words whitespace-pre-wrap pb-6 scroll-smooth sm:scroll-auto"
+      className="bg-black font-mono w-full mx-auto mt-4 overflow-x-hidden break-words whitespace-pre-wrap pb-6"
     >
       {output.map((line, idx) => (
             line === "" ? (
