@@ -1,19 +1,25 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { ABOUT_TEXT } from "../constants/aboutContent";
 import HELP_TEXT from "../constants/helpText";
 import BoxSpinner from "./BoxSpinner";
 import CONTACT_TEXT from "../constants/contact";
 import { EXPERIENCE_TEXT } from "../constants/experience";
 
-export default function TerminalPrompt() {
-  const [input, setInput] = useState("");
-  const [output, setOutput] = useState<string[]>([]);
+type TerminalPromptProps = {
+  input: string;
+  setInput: React.Dispatch<React.SetStateAction<string>>;
+  output: string[];
+  setOutput: React.Dispatch<React.SetStateAction<string[]>>;
+  scrollRef: React.RefObject<HTMLDivElement | null>;
+};
+
+export default function TerminalPrompt({ input, setInput, output, setOutput, scrollRef }: TerminalPromptProps) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const isDesktopRef = useRef<boolean>(false);
 
   const COMMANDS: Record<string, () => void> = {
-    help: () => setOutput(prev => [...prev, `niveditarani@portfolio:~$ help`, ...HELP_TEXT]),
+    help: () => setOutput((prev: string[]) => [...prev, `niveditarani@portfolio:~$ help`, ...HELP_TEXT]),
     about: () => setOutput((prev) => [
       ...prev,
       `niveditarani@portfolio:~$ about`,
@@ -47,12 +53,18 @@ export default function TerminalPrompt() {
   }, [output]); // output is your array of terminal lines
 
   useEffect(() => {
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    // Only run on mount
+    isDesktopRef.current =
+      !("ontouchstart" in window || navigator.maxTouchPoints > 0) &&
+      window.innerWidth >= 1024;
+  }, []);
   
-    if (!isTouchDevice && window.innerWidth > 1024) {
+  useEffect(() => {
+    // Only auto-focus if desktop
+    if (isDesktopRef.current) {
       inputRef.current?.focus();
     }
-  }, []);
+  }, [output]);
 
 
   const handleCommand = (cmd: string) => {
@@ -77,19 +89,38 @@ export default function TerminalPrompt() {
       e.preventDefault();
       handleCommand(input);
       setInput("");
-      // Refocus the input ONLY on desktop
-      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-      if (!isTouchDevice && window.innerWidth > 1024) {
+      const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+      const isLargeScreen = window.innerWidth >= 1024;
+
+      if (isTouchDevice || !isLargeScreen) {
+        // On mobile/tablet, blur to hide the keyboard
+        inputRef.current?.blur();
+      } else {
+        // On desktop, keep focus
         inputRef.current?.focus();
       }
 
-      // 2. Wait a frame, then scroll to bottom smoothly
+      // Step 1: Scroll a bit down
       setTimeout(() => {
-        scrollRef.current?.scrollTo({
-          top: scrollRef.current.scrollHeight,
-          behavior: "smooth",
+        if (!scrollRef.current) return;
+
+        requestAnimationFrame(() => {
+          scrollRef.current!.scrollTo({
+            top: scrollRef.current!.scrollTop + 100,
+            behavior: "smooth",
+          });
+
+          // Step 2: Scroll fully to bottom
+          setTimeout(() => {
+            requestAnimationFrame(() => {
+              scrollRef.current!.scrollTo({
+                top: scrollRef.current!.scrollHeight,
+                behavior: "smooth",
+              });
+            });
+          }, 300); // slight delay after partial scroll
         });
-      }, 80); // small delay ensures content renders first
+      }, 150); // delay after Enter press
     }
   };
 
@@ -153,57 +184,56 @@ export default function TerminalPrompt() {
 
   return (
     <div
-      ref={scrollRef}
-      className="bg-black font-mono w-full mx-auto mt-4 overflow-y-auto overflow-x-hidden break-words whitespace-pre-wrap pb-6 scroll-smooth sm:scroll-auto"
+      className="bg-black font-mono w-full mx-auto mt-4 overflow-x-hidden break-words whitespace-pre-wrap pb-6"
     >
       {output.map((line, idx) => (
             line === "" ? (
-                <div key={idx} className="snap-start">&nbsp;</div>
+                <div key={idx} className="snap-start animate-fade-in">&nbsp;</div>
             ) : line === "Available commands:" ? (
-                <div key={idx} className="text-white whitespace-pre snap-start">{line}</div>
+                <div key={idx} className="text-white whitespace-pre snap-start animate-fade-in">{line}</div>
             ) : line === "Type any command to continue..." ? (
-                <div key={idx} className="text-yellow-400 whitespace-pre snap-start">{line}</div>
+                <div key={idx} className="text-yellow-400 whitespace-pre snap-start animate-fade-in">{line}</div>
             ) : line.startsWith("COMMAND_NOT_FOUND:") ? (
-                <div key={idx} className="text-yellow-400 whitespace-pre snap-start">
+                <div key={idx} className="text-yellow-400 whitespace-pre snap-start animate-fade-in">
                 {`Command not found: ${line.replace("COMMAND_NOT_FOUND:", "").trim()}`}
                 </div>
             ): line.startsWith("ABOUT_HIGHLIGHT:") ? (
-                <div key={idx} className="text-yellow-400 whitespace-pre-wrap break-words snap-start">
+                <div key={idx} className="text-yellow-400 whitespace-pre-wrap break-words snap-start animate-fade-in">
                 {line.replace("ABOUT_HIGHLIGHT:", "").trim()}
                 </div>
             ) : line.startsWith("ABOUT_TEXT:") ? (
-                <div key={idx} className="text-white whitespace-pre-wrap break-words snap-start">
+                <div key={idx} className="text-white whitespace-pre-wrap break-words snap-start animate-fade-in">
                 {line.replace("ABOUT_TEXT:", "").trim()}
                 </div>
             ) : line === "PROJECTS_LOADING" ? (
-                <div key={idx} className="flex items-center text-green-400 snap-start space-x-2">
+                <div key={idx} className="flex items-center text-green-400 snap-start space-x-2 animate-fade-in">
                   <span><BoxSpinner /></span><span>Coming soon...</span>
                 </div>
             ) : line.startsWith("COMING_SOON:") ? (
-              <div key={idx} className="text-yellow-400 whitespace-pre-wrap">
+              <div key={idx} className="text-yellow-400 whitespace-pre-wrap animate-fade-in">
                 {line.replace("COMING_SOON:", "").trim()}
               </div>
             ) : line.startsWith("EXPERIENCE_TEXT:") ? (
-              <div key={idx} className="text-white whitespace-pre-wrap break-words snap-start">
+              <div key={idx} className="text-white whitespace-pre-wrap break-words snap-start animate-fade-in">
                 {line.replace("EXPERIENCE_TEXT:", "").trim()}
               </div>
             ) : line.startsWith("CONTACT_HIGHLIGHT:") ? (
-              <div key={idx} className="text-yellow-400 whitespace-pre-wrap break-words snap-start">
+              <div key={idx} className="text-yellow-400 whitespace-pre-wrap break-words snap-start animate-fade-in">
                {line.replace("CONTACT_HIGHLIGHT:", "").trim()}
               </div>
             ) : line.startsWith("CONTACT_TEXT:") ? (
-                <div key={idx} className="text-white whitespace-pre-wrap break-words snap-start">
+                <div key={idx} className="text-white whitespace-pre-wrap break-words snap-start animate-fade-in">
                  {parseContactLine(line.replace("CONTACT_TEXT:", "").trim())}
                 </div>
             ) : line.startsWith("niveditarani@portfolio:~$") ? (
-                <div key={idx} className="whitespace-pre snap-start">
+                <div key={idx} className="whitespace-pre snap-start animate-fade-in">
                 <span className="text-blue-400">
                     {line.slice(0, "niveditarani@portfolio:~$".length)}
                 </span>
                 {line.slice("niveditarani@portfolio:~$".length)}
                 </div>
             ) : (
-                <div key={idx} className="whitespace-pre snap-start">{line}</div>
+                <div key={idx} className="whitespace-pre snap-start animate-fade-in">{line}</div>
             )
         ))}
       <div className="flex items-center snap-start">
