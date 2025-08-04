@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { ABOUT_TEXT } from "../constants/aboutContent";
 import HELP_TEXT from "../constants/helpText";
 import BoxSpinner from "./BoxSpinner";
@@ -16,6 +16,7 @@ type TerminalPromptProps = {
 
 export default function TerminalPrompt({ input, setInput, output, setOutput, scrollRef }: TerminalPromptProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   const COMMANDS: Record<string, () => void> = {
     help: () => setOutput((prev: string[]) => [...prev, `niveditarani@portfolio:~$ help`, ...HELP_TEXT]),
@@ -52,10 +53,8 @@ export default function TerminalPrompt({ input, setInput, output, setOutput, scr
   }, [output]); // output is your array of terminal lines
 
   useEffect(() => {
-    const isLargeScreen = window.innerWidth >= 1024;
-
-    if (isLargeScreen) {
-      inputRef.current?.focus();
+    if (typeof window !== "undefined") {
+      setIsLargeScreen(window.innerWidth >= 1024);
     }
   }, []);
 
@@ -222,6 +221,7 @@ export default function TerminalPrompt({ input, setInput, output, setOutput, scr
                 value={input}
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
+                {...(isLargeScreen ? { autoFocus: true } : {})}
                 />
                 <span className="absolute left-0 top-0 blinking-cursor text-green-400 font-bold pointer-events-none">
                 {input}
