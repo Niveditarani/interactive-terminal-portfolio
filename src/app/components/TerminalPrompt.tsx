@@ -118,9 +118,9 @@ export default function TerminalPrompt({ input, setInput, output, setOutput, scr
                 behavior: "smooth",
               });
             });
-          }, 300); // slight delay after partial scroll
+          }, 500); // slight delay after partial scroll
         });
-      }, 150); // delay after Enter press
+      }, 700); // delay after Enter press
     }
   };
 
