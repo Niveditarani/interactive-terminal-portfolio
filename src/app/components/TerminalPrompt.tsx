@@ -5,6 +5,7 @@ import HELP_TEXT from "../constants/helpText";
 import BoxSpinner from "./BoxSpinner";
 import CONTACT_TEXT from "../constants/contact";
 import { EXPERIENCE_TEXT } from "../constants/experience";
+import BLOG_TEXT from "../constants/blog";
 
 type TerminalPromptProps = {
   input: string;
@@ -25,6 +26,13 @@ export default function TerminalPrompt({ input, setInput, output, setOutput, scr
       `niveditarani@portfolio:~$ about`,
       ...ABOUT_TEXT.map(line => line.startsWith("ABOUT_HIGHLIGHT:") ? line
       : line ? `ABOUT_TEXT:${line}` : ""),
+    ]),
+    blog: () => setOutput((prev) => [
+      ...prev,
+      `niveditarani@portfolio:~$ blog`,
+      ...BLOG_TEXT.map(line => line.startsWith("BLOG_HIGHLIGHT:") ? line
+      : line.startsWith("BLOG_LINK:") ? line
+      : line ? `BLOG_TEXT:${line}` : ""),
     ]),
     projects: () => {setOutput(prev => [...prev, `niveditarani@portfolio:~$ projects`, "PROJECTS_LOADING"]);
       setTimeout(()=> {
@@ -224,6 +232,30 @@ export default function TerminalPrompt({ input, setInput, output, setOutput, scr
             ) : line.startsWith("CONTACT_TEXT:") ? (
                 <div key={idx} className="text-white whitespace-pre-wrap break-words snap-start animate-fade-in">
                  {parseContactLine(line.replace("CONTACT_TEXT:", "").trim())}
+                </div>
+            ) : line.startsWith("BLOG_HIGHLIGHT:") ? (
+                <div key={idx} className="text-yellow-400 whitespace-pre-wrap break-words snap-start animate-fade-in">
+                 {line.replace("BLOG_HIGHLIGHT:", "").trim()}
+                </div>
+            ) : line.startsWith("BLOG_LINK:") ? (
+              (() => {
+                const [text, url] = line.replace("BLOG_LINK:", "").split("|");
+                return (
+                  <div key={idx} className="text-blue-400 whitespace-pre-wrap break-words snap-start animate-fade-in">
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-400 underline hover:text-blue-600 transition"
+                    >
+                      {text.trim()}
+                    </a>
+                  </div>
+                );
+              })()
+            ) : line.startsWith("BLOG_TEXT:") ? (
+                <div key={idx} className="text-white whitespace-pre-wrap break-words snap-start animate-fade-in">
+                 {line.replace("BLOG_TEXT:", "").trim()}
                 </div>
             ) : line.startsWith("niveditarani@portfolio:~$") ? (
                 <div key={idx} className="whitespace-pre snap-start animate-fade-in">

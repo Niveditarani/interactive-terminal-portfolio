@@ -4,7 +4,7 @@ import TerminalWelcome from "./TerminalWelcome";
 import TerminalPrompt from "./TerminalPrompt";
 
 export default function Menu() {
-    const options = ["help |", "about |", "projects |", "experience |", "contact |", "clear"];
+    const options = ["help |", "about |", "projects |", "experience |", "blog |", "contact |", "clear"];
     const scrollRef = useRef<HTMLDivElement>(null);
     const [output, setOutput] = useState<string[]>([]);
     const [input, setInput] = useState("");
@@ -22,7 +22,7 @@ export default function Menu() {
         <div className="flex flex-col h-full">
             <div className="shrink-0 hidden md:block">
                 {/* Menu options at the top */}
-                <div className="flex flex-row items-start justify-start pt-4 flex-wrap">
+                <div className="flex flex-row items-start justify-start pt-4 flex-wrap pl-2">
                     {options.map(option => (
                     <span key={option} className="text-green-400 text-md font-mono px-2">
                         {option}
@@ -30,7 +30,7 @@ export default function Menu() {
                     ))}
                 </div>
                 {/* Separator line */}
-                <div className="w-130 h-px bg-green-400 mt-3" />
+                <div className="w-154 h-px bg-green-400 mt-3" />
             </div>
             {/* Terminal scroll container: fills remaining space, scrolls vertically, no horizontal scroll */}
             <div
