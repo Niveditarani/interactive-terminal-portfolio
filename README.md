@@ -3,7 +3,7 @@
 Welcome to my **interactive terminal-style portfolio** — a fun, developer-centric way to explore who I am, what I’ve worked on, and how to get in touch. Built to feel like a command-line interface, this portfolio is designed with minimalism, responsiveness, and curiosity in mind.
 
 <h3 align="center">
-  <img width="1859" height="977" alt="Image" src="https://github.com/user-attachments/assets/c069e1e5-2d93-4ede-86b1-b0933207eba2" />
+  ![Interactive Terminal Demo](demo/demo.mp4.gif)
 </h3>
 
 <br/>
