@@ -3,7 +3,7 @@
 Welcome to my **interactive terminal-style portfolio** — a fun, developer-centric way to explore who I am, what I’ve worked on, and how to get in touch. Built to feel like a command-line interface, this portfolio is designed with minimalism, responsiveness, and curiosity in mind.
 
 <h3 align="center">
-  ![Interactive Terminal Demo](demo/demo.mp4.gif)
+ <img src="https://raw.githubusercontent.com/Niveditarani/interactive-terminal-portfolio/main/demo/demo.mp4.gif" alt="Interactive Terminal Demo" />
 </h3>
 
 <br/>
