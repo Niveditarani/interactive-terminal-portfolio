@@ -8,6 +8,10 @@ export const metadata: Metadata = {
   title: 'Nivedita Rani',
   description:
     "Hi! I'm Nivedita Rani, a Software Engineer crafting interactive experiences with React, Next.js, and TypeScript. Welcome to my terminal-style portfolio.",
+  // Google verification meta tag:
+  verification: {
+    google: 'sg9gp71Bnz41_Y39HD7n2NG6wMelJt715XR2rADs9jY',
+  },
   keywords: [
     'Nivedita Rani',
     'Software Engineer',
