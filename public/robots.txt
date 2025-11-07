@@ -1,13 +1,6 @@
-# Allow Facebook crawler
-User-agent: facebookexternalhit
-Allow: /
-
-# Allow all other crawlers
+# *
 User-agent: *
 Allow: /
-
-# Explicitly allow favicon
-Allow: /favicon.ico
 
 # Host
 Host: https://niveditarani.dev
