@@ -14,8 +14,12 @@ export default function TerminalWelcome() {
         <p className="mt-2 text-white">
           Hi, I'm Nivedita Rani, a full stack developer based in Copenhagen. I enjoy crafting delightful UI, pragmatic APIs and production-ready systems using Next.js + TypeScript.
         </p>
-          <h3 className="text-lg font-semibold text-green-200 mt-2 mb-2">Skills:</h3>
+        <p className="mt-2 text-white">
+          Lately, I’ve been expanding into AI engineering—working with LLMs, embeddings, and intelligent applications to create smarter products.
+        </p>
+          <h3 className="text-lg font-semibold text-green-200 mt-3 mb-2">Skills:</h3>
           <ul className="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-y-1 text-green-300">
+            <li>Generative AI, LLMs, OPENAI API, Vector Databases</li>
             <li>React, Next.js, App Router</li>
             <li>TypeScript, JavaScript</li>
             <li>HTML5, CSS3, TailwindCSS</li>

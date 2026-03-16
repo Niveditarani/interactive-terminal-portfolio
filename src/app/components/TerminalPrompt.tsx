@@ -6,6 +6,7 @@ import BoxSpinner from "./BoxSpinner";
 import CONTACT_TEXT from "../constants/contact";
 import { EXPERIENCE_TEXT } from "../constants/experience";
 import BLOG_TEXT from "../constants/blog";
+import { PROJECT_TEXT } from "../constants/project";
 
 type TerminalPromptProps = {
   input: string;
@@ -34,14 +35,13 @@ export default function TerminalPrompt({ input, setInput, output, setOutput, scr
       : line.startsWith("BLOG_LINK:") ? line
       : line ? `BLOG_TEXT:${line}` : ""),
     ]),
-    projects: () => {setOutput(prev => [...prev, `niveditarani@portfolio:~$ projects`, "PROJECTS_LOADING"]);
-      setTimeout(()=> {
-        setOutput((prev)=> [...prev.slice(0, -1), "",
-          "COMING_SOON: Projects section is coming soon!",
-        "",
-      ]);
-      },800);
-    },
+    projects: () => setOutput((prev) => [
+      ...prev,
+      `niveditarani@portfolio:~$ projects`,
+      ...PROJECT_TEXT.map(line => line.startsWith("PROJECT_HIGHLIGHT:") ? line
+      : line.startsWith("PROJECT_LINK:") ? line
+      : line ? `PROJECT_TEXT:${line}` : ""),
+    ]),
     contact: () => setOutput((prev) => [
       ...prev,
       `niveditarani@portfolio:~$ contact`,
@@ -193,6 +193,8 @@ export default function TerminalPrompt({ input, setInput, output, setOutput, scr
   return (
     <div
       className="bg-black font-mono w-full mx-auto mt-4 overflow-x-hidden break-words whitespace-pre-wrap pb-6"
+      role="region"
+      aria-label="Terminal output"              // describes the output for screen readers
     >
       {output.map((line, idx) => (
             line === "" ? (
@@ -210,7 +212,7 @@ export default function TerminalPrompt({ input, setInput, output, setOutput, scr
                 {line.replace("ABOUT_HIGHLIGHT:", "").trim()}
                 </div>
             ) : line.startsWith("ABOUT_TEXT:") ? (
-                <div key={idx} className="text-white whitespace-pre-wrap break-words snap-start animate-fade-in">
+                <div key={idx} className="text-white whitespace-pre-wrap break-words snap-start animate-fade-in" aria-live="polite">
                 {line.replace("ABOUT_TEXT:", "").trim()}
                 </div>
             ) : line === "PROJECTS_LOADING" ? (
@@ -257,6 +259,30 @@ export default function TerminalPrompt({ input, setInput, output, setOutput, scr
                 <div key={idx} className="text-white whitespace-pre-wrap break-words snap-start animate-fade-in">
                  {line.replace("BLOG_TEXT:", "").trim()}
                 </div>
+            ) : line.startsWith("PROJECT_HIGHLIGHT:") ? (
+                <div key={idx} className="text-yellow-400 whitespace-pre-wrap break-words snap-start animate-fade-in">
+                 {line.replace("PROJECT_HIGHLIGHT:", "").trim()}
+                </div>
+            ) : line.startsWith("PROJECT_LINK:") ? (
+              (() => {
+                const [text, url] = line.replace("PROJECT_LINK:", "").split("|");
+                return (
+                  <div key={idx} className="text-blue-400 whitespace-pre-wrap break-words snap-start animate-fade-in">
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-400 underline hover:text-blue-600 transition"
+                    >
+                      {text.trim()}
+                    </a>
+                  </div>
+                );
+              })()
+            ) : line.startsWith("PROJECT_TEXT:") ? (
+                <div key={idx} className="text-white whitespace-pre-wrap break-words snap-start animate-fade-in">
+                 {line.replace("PROJECT_TEXT:", "").trim()}
+                </div>
             ) : line.startsWith("niveditarani@portfolio:~$") ? (
                 <div key={idx} className="whitespace-pre snap-start animate-fade-in">
                 <span className="text-blue-400">
@@ -281,6 +307,8 @@ export default function TerminalPrompt({ input, setInput, output, setOutput, scr
                 value={input}
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
+                role="textbox"                   // tells assistive tech this is a text input
+                aria-label="Terminal input"      // describes the input for screen readers
                 />
                 <span className="absolute left-0 top-0 blinking-cursor text-green-400 font-bold pointer-events-none">
                 {input}
