@@ -1,6 +1,6 @@
 export const PROJECT_TEXT = [
   "",
-  "Here are some interesting projects i worked on:",
+  "Here are some interesting projects I worked on:",
   "",
   "PROJECT_HIGHLIGHT:1) Topic Analysis of Clothing Reviews with Embeddings",
   "Built a semantic search system on Women's Clothing E-Commerce reviews using OpenAI text embeddings and ChromaDB.",

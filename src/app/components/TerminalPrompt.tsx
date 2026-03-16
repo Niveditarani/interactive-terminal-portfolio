@@ -42,6 +42,13 @@ export default function TerminalPrompt({ input, setInput, output, setOutput, scr
       : line.startsWith("PROJECT_LINK:") ? line
       : line ? `PROJECT_TEXT:${line}` : ""),
     ]),
+    project: () => setOutput((prev) => [
+      ...prev,
+      `niveditarani@portfolio:~$ project`,
+      ...PROJECT_TEXT.map(line => line.startsWith("PROJECT_HIGHLIGHT:") ? line
+      : line.startsWith("PROJECT_LINK:") ? line
+      : line ? `PROJECT_TEXT:${line}` : ""),
+    ]),
     contact: () => setOutput((prev) => [
       ...prev,
       `niveditarani@portfolio:~$ contact`,
